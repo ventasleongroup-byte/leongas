@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex">
+<title>Prueba LEONGAS</title>
+<link rel="stylesheet" href="../estilos.css">
+</head>
+<body>
+<main>
+  <img class="logo" src="../img/logo.png" alt="LEONGAS">
+  <h1 class="centro">Prueba del celular</h1>
+  <p class="sub centro">Página de prueba interna de LEONGAS. No la compartas con clientes.</p>
+
+  <div class="nota">Ábrela <strong>desde un chat de WhatsApp</strong>: mándate este enlace a ti mismo («Mensaje para mí») y tócalo ahí. Así se prueba igual que lo harán tus clientes.</div>
+
+  <h2 class="separado">Prueba 1 · La agenda</h2>
+  <p class="sub">Toca el botón. Si se abre tu agenda, marca 2 o 3 contactos y acepta. Los números <strong>no se envían a ningún lado</strong>: solo se muestran aquí.</p>
+  <button class="boton secundario" id="agenda" type="button">📇 Elegir de mis contactos</button>
+  <p class="error" id="agenda-estado"></p>
+  <div class="lista" id="agenda-lista"></div>
+
+  <h2>Prueba 2 · La imagen en WhatsApp</h2>
+  <p class="sub">Toca el botón, elige cualquier chat (por ejemplo tú mismo) y <strong>mira la caja de texto antes de enviar</strong>: ¿aparece arriba la imagen roja de LEONGAS? No hace falta enviarlo.</p>
+  <a class="boton wa" id="preview" href="#">Abrir WhatsApp con el mensaje de prueba</a>
+
+  <h2 class="separado">Cuéntale a Claude</h2>
+  <p class="sub">1) ¿Se abrió la agenda? 2) ¿Salió la imagen arriba del mensaje? Y copia esta línea:</p>
+  <p class="nota" id="navegador"></p>
+</main>
+<script src="prueba.js"></script>
+</body>
+</html>

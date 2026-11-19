@@ -1,0 +1,52 @@
+/* Sitio público de "Pasa la llama". Sin framework: HTML, este CSS y JS propio.
+   Los colores son los del logo. El arte definitivo llega al final (ver
+   creativo-afiliados/INDICACIONES.md, fuera del repo). */
+:root {
+  --rojo: #C8161D; --naranja: #F26B1D; --amarillo: #FFC21A; --vino: #3B0D0C;
+  --crema: #FFF3E8; --tinta: #1F1A17; --gris: #6B6461; --linea: #E8DED6;
+  --verde: #1E9E5A; --wa: #25D366;
+}
+* { box-sizing: border-box }
+html, body { margin: 0 }
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--tinta); background: linear-gradient(180deg, #fff 0, var(--crema) 100%);
+  min-height: 100vh; line-height: 1.45;
+}
+main { max-width: 440px; margin: 0 auto; padding: 22px 18px 32px; display: flex; flex-direction: column; min-height: 100vh }
+.centro { text-align: center }
+.logo { width: 72px; height: 72px; display: block; margin: 4px auto 8px }
+.pill { display: inline-block; background: var(--vino); color: #fff; border-radius: 20px; padding: 3px 12px; font-size: 12px; font-weight: 700; letter-spacing: .5px }
+h1 { font-size: 26px; margin: 10px 0 6px; line-height: 1.15 }
+h2 { font-size: 20px; margin: 4px 0 8px }
+.sub { color: var(--gris); font-size: 15px }
+.grande { font-size: 64px; font-weight: 800; color: var(--rojo); line-height: 1; margin: 14px 0 4px }
+.grande.verde { color: var(--verde) }
+.paso { font-size: 12px; color: var(--gris); letter-spacing: .5px; text-transform: uppercase }
+.lista { display: flex; flex-direction: column; gap: 10px; margin: 14px 0 }
+.tarjeta { display: flex; gap: 10px; align-items: flex-start; background: #fff; border: 1px solid var(--linea); border-radius: 14px; padding: 11px 12px; font-size: 15px; text-align: left }
+.num { flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--naranja); color: #fff; font-weight: 700; display: grid; place-items: center; font-size: 14px }
+.num.ok { background: var(--verde) }
+.num.espera { background: #bbb }
+.nota { font-size: 14px; background: #fff; border: 1px dashed var(--naranja); border-radius: 12px; padding: 10px 12px; color: var(--gris) }
+.boton { display: block; width: 100%; border: 0; border-radius: 14px; padding: 15px 12px; font: inherit; font-weight: 700; font-size: 16px; color: #fff; background: linear-gradient(90deg, var(--rojo), var(--naranja)); text-align: center; text-decoration: none; cursor: pointer; margin-top: 12px }
+.boton.wa { background: var(--wa) }
+.boton.secundario { background: #fff; color: var(--rojo); border: 2px solid var(--rojo) }
+.boton[disabled] { opacity: .5 }
+.empuje { margin-top: auto }
+.chico { font-size: 12.5px; color: var(--gris); margin-top: 10px; text-align: center }
+.contacto { display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid var(--linea); border-radius: 12px; padding: 9px 11px }
+.contacto .av { flex: none; width: 34px; height: 34px; border-radius: 50%; background: #F5D9C6; color: var(--vino); font-weight: 700; display: grid; place-items: center; font-size: 13px }
+.contacto .t { flex: 1; min-width: 0 }
+.contacto .t small { display: block; color: var(--gris) }
+.contacto button { border: 0; border-radius: 10px; padding: 8px 11px; font: inherit; font-weight: 700; font-size: 13px; cursor: pointer }
+.contacto .quitar { background: transparent; color: var(--gris) }
+.contacto .enviar { background: var(--wa); color: #fff }
+.contacto .enviado { background: #E7F6EE; color: var(--verde) }
+.fila { display: flex; gap: 8px; margin: 10px 0 }
+.fila input { flex: 1; min-width: 0; border: 1.5px solid var(--linea); border-radius: 12px; padding: 12px; font: inherit; font-size: 16px; background: #fff }
+.fila button { border: 0; border-radius: 12px; padding: 0 16px; background: var(--vino); color: #fff; font-weight: 700; font-size: 18px; cursor: pointer }
+.error { color: var(--rojo); font-size: 14px; min-height: 1em }
+.oculto { display: none !important }
+.flyer { width: 100%; border-radius: 14px; display: block; margin: 6px 0 10px; box-shadow: 0 8px 24px #3b0d0c33 }
+.separado { margin-top: 18px }
