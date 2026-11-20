@@ -89,7 +89,13 @@
   if (!soportaAgenda) { $('agenda').classList.add('oculto'); $('o-escribe').textContent = 'Escribe el celular de tu amigo' }
   $('agenda').addEventListener('click', function () {
     $('error-elegir').textContent = ''
-    navigator.contacts.select(['name', 'tel'], { multiple: true }).then(function (lista) {
+    function sinAgenda() {
+      $('error-elegir').textContent = 'Este navegador no deja abrir tu agenda. Escribe el celular de tu amigo aquí abajo, o abre este enlace en Chrome.'
+      $('numero').focus()
+    }
+    var pedido
+    try { pedido = navigator.contacts.select(['name', 'tel'], { multiple: true }) } catch (e) { sinAgenda(); return }
+    pedido.then(function (lista) {
       var malos = 0
       lista.forEach(function (c) {
         var tels = c.tel || []
@@ -99,7 +105,10 @@
       })
       if (malos) $('error-elegir').textContent = malos + ' contacto(s) sin celular válido no se agregaron.'
       pintarElegidos()
-    }).catch(function () { /* el cliente cerró la agenda */ })
+    }).catch(function (e) {
+      // Cerrar la agenda es normal (AbortError); cualquier otra cosa: se avisa.
+      if (!e || e.name !== 'AbortError') sinAgenda()
+    })
   })
   $('agregar').addEventListener('click', function () {
     var input = $('numero')
