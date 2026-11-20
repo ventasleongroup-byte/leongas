@@ -3,21 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src https://cnychdelfsppsinohkaf.supabase.co; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
-<title>Tu primer pedido LEONGAS con S/3 de descuento</title>
+<title>Te pasaron la llama · Gas a domicilio LEONGAS</title>
 <!-- Vista previa de WhatsApp: la misma para todos. Lo personal va en el texto
      que escribe el cliente que invita. -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="LEONGAS">
-<meta property="og:title" content="Tu primer pedido LEONGAS con S/3 de descuento 🎁">
-<meta property="og:description" content="Gas a domicilio. Llama o pide por WhatsApp al 999 995 646.">
+<meta property="og:title" content="Te pasaron la llama 🔥 Gas a domicilio LEONGAS">
+<meta property="og:description" content="Desde tu 2ª compra ahorras S/2, y S/5 desde la 3ª. Llama o pide por WhatsApp al 999 995 646.">
 <meta property="og:url" content="https://ventasleongroup-byte.github.io/leongas/a/">
-<meta property="og:image" content="https://ventasleongroup-byte.github.io/leongas/og/invitacion.jpg">
+<meta property="og:image" content="https://ventasleongroup-byte.github.io/leongas/og/invitacion-v2.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Te pasaron la llama: S/3 de descuento en tu primer balón LEONGAS">
+<meta property="og:image:alt" content="Te pasaron la llama: desde tu 2ª compra LEONGAS ahorras S/2, y luego S/5">
 <link rel="stylesheet" href="../estilos.css">
 <link rel="icon" href="../img/logo.png">
 </head>
@@ -26,12 +26,28 @@
   <img class="logo" src="../img/logo.png" alt="LEONGAS">
   <span class="pill">UN AMIGO TE INVITA 🔥</span>
   <h1>Te pasaron la llama</h1>
-  <img class="flyer" src="../og/invitacion.jpg" alt="S/3 de descuento en tu primer pedido LEONGAS">
-  <p class="sub"><strong>S/3 de descuento</strong> en tu primer pedido de gas a domicilio.</p>
-  <div class="empuje"></div>
+  <img class="flyer" src="../og/invitacion-v2.jpg" alt="Desde tu 2ª compra ahorras S/2, y luego S/5">
+  <p class="sub">Gas a domicilio. Pide con esta invitación y <strong>desde tu 2ª compra ahorras S/2</strong>,
+    y <strong>S/5 desde la 3ª</strong> comprando al menos una vez al mes.</p>
   <a class="boton" href="tel:+51999995646">📞 Llamar al 999 995 646</a>
   <a class="boton wa" id="pedir" href="https://wa.me/51999995646">💬 Pedir por WhatsApp</a>
-  <p class="chico">Válido para clientes nuevos.</p>
+
+  <!-- Registro: su propio enlace para invitar, aunque todavía no compre. -->
+  <section id="registro" class="oculto separado">
+    <div class="nota">
+      <strong>¿Tú también quieres ganar?</strong> Invita a tus amigos y gana <strong>S/2</strong> por cada uno
+      que pida. Deja tus datos y recibe tu enlace ahora, aunque todavía no compres.
+    </div>
+    <form id="form-registro" class="lista" novalidate>
+      <input class="campo" id="r-nombre" type="text" autocomplete="given-name" maxlength="60" placeholder="Tu nombre (opcional)" aria-label="Tu nombre">
+      <input class="campo" id="r-celular" type="tel" inputmode="numeric" autocomplete="tel" maxlength="15" placeholder="Tu celular: 9__ ___ ___" aria-label="Tu celular">
+      <input class="campo" id="r-direccion" type="text" autocomplete="street-address" maxlength="120" placeholder="Tu dirección (calle, número, referencia)" aria-label="Tu dirección">
+      <p class="error" id="r-error"></p>
+      <button class="boton" type="submit" id="r-enviar">Quiero mi enlace para invitar</button>
+    </form>
+    <p class="chico">GRUPO LEON LOGISTICA S.R.L. (RUC 20611877634, Jr. Miraflores 370, Huancayo), titular de LEONGAS, guarda tu celular, tu dirección y tu nombre solo para tus pedidos, descuentos e invitaciones de este programa, y no los comparte con nadie. Quien te invitó solo verá si ya pediste. Para ver, corregir o borrar tus datos, escríbenos al 999 995 646 (Ley 29733).</p>
+    <a class="boton wa oculto" id="r-wa" href="https://wa.me/51999995646">💬 Pedir mi enlace por WhatsApp</a>
+  </section>
 </main>
 <script src="a.js"></script>
 </body>
