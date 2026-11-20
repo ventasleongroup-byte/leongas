@@ -36,6 +36,7 @@
   <section id="v-bienvenida" class="centro oculto">
     <img class="logo" src="../img/logo.png" alt="LEONGAS">
     <span class="pill">PASA LA LLAMA 🔥</span>
+    <img class="hero-img" src="../img/leon-bienvenida.jpg" alt="El león de LEONGAS te saluda" width="640" height="631">
     <h1>Hola, <span class="js-nombre"></span> 👋</h1>
     <p class="sub">Estás a <strong>2 pasos</strong> de ganar descuentos en tu próximo balón</p>
     <div class="grande">S/<span class="js-premio"></span></div>
@@ -49,9 +50,9 @@
   <section id="v-como" class="oculto">
     <h1 class="centro">Así de fácil</h1>
     <div class="lista">
-      <div class="tarjeta"><span class="num">1</span><span><strong>Eliges a tus amigos</strong><br>de tu agenda, en un toque.</span></div>
-      <div class="tarjeta"><span class="num">2</span><span><strong>Les llega tu invitación</strong><br>con su promoción: desde su 2ª compra ahorran hasta S/<span class="js-racha"></span> 🎁</span></div>
-      <div class="tarjeta"><span class="num">3</span><span><strong>Cuando pidan, tú ganas S/<span class="js-premio"></span></strong><br>para tu próxima compra 💰</span></div>
+      <div class="tarjeta"><img class="paso-img" src="../img/leon-paso1.jpg" alt="" width="260" height="260"><span><strong>1. Eliges a tus amigos</strong><br>de tu agenda, en un toque.</span></div>
+      <div class="tarjeta"><img class="paso-img" src="../img/leon-paso2.jpg" alt="" width="260" height="260"><span><strong>2. Les llega tu invitación</strong><br>con su promoción: desde su 2ª compra ahorran hasta S/<span class="js-racha"></span> 🎁</span></div>
+      <div class="tarjeta"><img class="paso-img" src="../img/leon-paso3.jpg" alt="" width="260" height="260"><span><strong>3. Cuando pidan, tú ganas S/<span class="js-premio"></span></strong><br>para tu próxima compra 💰</span></div>
     </div>
     <p class="nota">Tus amigos <strong>no tienen que decir tu nombre</strong>: nosotros sabemos que vienen de tu parte.</p>
     <div class="empuje"></div>
@@ -62,7 +63,12 @@
   <section id="v-elegir" class="oculto">
     <p class="paso">Paso 1 de 2</p>
     <h2>¿A quién invitas?</h2>
-    <button class="boton secundario" type="button" id="agenda">📇 Elegir de mis contactos</button>
+    <button class="boton wa" type="button" id="compartir">💬 Invitar por WhatsApp</button>
+    <p class="chico">Se abre WhatsApp con tus chats frecuentes primero: marcas a quienes quieras y envías.</p>
+    <p class="nota oculto" id="compartido">✅ Listo. Cuando tus amigos pidan, tu descuento te espera en tu próxima compra.</p>
+    <button class="boton secundario oculto" type="button" id="terminar" data-ir="saldo">Ver mi saldo</button>
+    <button class="boton secundario" type="button" id="agenda">📇 Elegir de mi agenda</button>
+    <a class="boton secundario oculto" id="abrir-chrome" href="#">🌐 Abrir en Chrome para usar mi agenda</a>
     <p class="chico" id="o-escribe">o escribe un número</p>
     <div class="fila">
       <input id="numero" type="tel" inputmode="numeric" autocomplete="off" placeholder="9__ ___ ___" maxlength="15" aria-label="Celular de tu amigo">
@@ -89,9 +95,9 @@
 
   <!-- F · Saldo -->
   <section id="v-saldo" class="centro oculto">
-    <img class="logo" src="../img/logo.png" alt="LEONGAS">
     <h1><span class="js-nombre"></span>, <span id="saldo-titulo">¡vas ganando!</span> 🔥</h1>
-    <div class="grande verde">S/<span id="saldo"></span></div>
+    <div class="hero"><img src="../img/leon-ganando.jpg" alt="" width="900" height="600">
+      <div class="grande">S/<span id="saldo"></span></div></div>
     <p class="sub" id="saldo-sub">de descuento para tu próximo balón</p>
     <p class="sub oculto" id="ultimo-uso"></p>
     <p class="nota oculto" id="escalera"></p>

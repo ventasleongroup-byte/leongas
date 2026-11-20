@@ -55,3 +55,11 @@ h2 { font-size: 20px; margin: 4px 0 8px }
 .compra small { display: block; color: var(--gris) }
 .compra .monto { text-align: right; font-weight: 700; white-space: nowrap }
 .compra .ahorro { color: var(--verde); font-weight: 600 }
+
+/* Ilustraciones (león y repartidor, generadas con IA; logo, cifras y teléfono van en código) */
+.hero-img { width: 100%; max-width: 360px; height: auto; border-radius: 22px; display: block; margin: 8px auto 4px; box-shadow: 0 8px 24px #3b0d0c33 }
+.paso-img { flex: none; width: 76px; height: 76px; border-radius: 16px; object-fit: cover }
+.tarjeta:has(.paso-img) { align-items: center; gap: 12px }
+.hero { position: relative; margin: 10px 0 6px }
+.hero img { width: 100%; height: auto; border-radius: 18px; display: block; box-shadow: 0 8px 24px #3b0d0c33 }
+.hero .grande { position: absolute; inset: 0; display: grid; place-items: center; margin: 0; color: var(--vino); text-shadow: 0 2px 0 #fff8, 0 0 24px #fff }

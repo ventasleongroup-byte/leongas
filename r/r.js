@@ -85,15 +85,47 @@
     return true
   }
 
-  var soportaAgenda = 'contacts' in navigator && 'ContactsManager' in window
-  if (!soportaAgenda) { $('agenda').classList.add('oculto'); $('o-escribe').textContent = 'Escribe el celular de tu amigo' }
+  // La agenda del celular solo se puede abrir desde Chrome: Brave y Opera
+  // muestran el botón pero no abren nada. En ellos se ofrece abrir Chrome.
+  var ua = navigator.userAgent || ''
+  var esAndroid = /Android/i.test(ua)
+  var esChrome = !/OPR\/|Opera|OPT\/|Brave|EdgA|SamsungBrowser|DuckDuckGo|Firefox/i.test(ua) && !navigator.brave
+  var soportaAgenda = 'contacts' in navigator && 'ContactsManager' in window && esChrome
+  function abrirEnChrome() {
+    if (!esAndroid || esChrome) return
+    $('abrir-chrome').href = 'intent://' + location.host + location.pathname + location.search + location.hash +
+      '#Intent;scheme=https;package=com.android.chrome;end'
+    $('abrir-chrome').classList.remove('oculto')
+  }
+  if (!soportaAgenda) {
+    $('agenda').classList.add('oculto')
+    $('o-escribe').textContent = 'o escribe el celular de tu amigo'
+    abrirEnChrome()
+  }
+
+  // Invitar por el selector de WhatsApp: sus chats frecuentes salen primero y
+  // se marcan varios, como en cualquier envío de WhatsApp.
+  $('compartir').addEventListener('click', function () {
+    if (!estado) return
+    var msg = mensajeAmigo('')
+    function listo() { $('compartido').classList.remove('oculto'); $('terminar').classList.remove('oculto') }
+    function viaWa() { window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank', 'noopener'); listo() }
+    if (navigator.share) {
+      navigator.share({ text: msg }).then(listo).catch(function (e) {
+        if (!e || e.name !== 'AbortError') viaWa()
+      })
+    } else viaWa()
+  })
+
   $('agenda').addEventListener('click', function () {
     $('error-elegir').textContent = ''
     function sinAgenda() {
-      $('error-elegir').textContent = 'Este navegador no deja abrir tu agenda. Escribe el celular de tu amigo aquí abajo, o abre este enlace en Chrome.'
+      $('error-elegir').textContent = 'Este navegador no deja abrir tu agenda. Usa «Invitar por WhatsApp», escribe el celular aquí abajo o abre el enlace en Chrome.'
+      abrirEnChrome()
+      $('agenda').classList.add('oculto')
       $('numero').focus()
     }
-    var pedido
+    var pedido, inicio = Date.now()
     try { pedido = navigator.contacts.select(['name', 'tel'], { multiple: true }) } catch (e) { sinAgenda(); return }
     pedido.then(function (lista) {
       var malos = 0
@@ -107,7 +139,8 @@
       pintarElegidos()
     }).catch(function (e) {
       // Cerrar la agenda es normal (AbortError); cualquier otra cosa: se avisa.
-      if (!e || e.name !== 'AbortError') sinAgenda()
+      // Si "se cerró" al instante, el navegador la bloqueó: no la abrió nadie.
+      if (!e || e.name !== 'AbortError' || Date.now() - inicio < 700) sinAgenda()
     })
   })
   $('agregar').addEventListener('click', function () {
