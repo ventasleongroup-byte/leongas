@@ -244,7 +244,18 @@
         window.open(a.href, '_blank', 'noopener')
         progreso(guardados.length)
       })
-      fila.appendChild(av); fila.appendChild(t); fila.appendChild(boton); cont.appendChild(fila)
+      // Respaldo para quien usa WhatsApp Business: el menú de compartir lista ambos.
+      var otro = document.createElement('button'); otro.type = 'button'; otro.className = 'enviar'
+      otro.textContent = '⋯'; otro.title = 'Enviar con otro WhatsApp'; otro.setAttribute('aria-label', 'Enviar con otro WhatsApp')
+      otro.addEventListener('click', function () {
+        var texto = mensajeAmigo(c.nombre)
+        enviados[c.telefono] = true
+        boton.className = 'enviado'; boton.textContent = 'Enviado ✓'
+        if (navigator.share) navigator.share({ text: texto }).catch(function () {})
+        else if (navigator.clipboard) navigator.clipboard.writeText(texto).then(function () { alert('Mensaje copiado. Pégalo en WhatsApp.') })
+        progreso(guardados.length)
+      })
+      fila.appendChild(av); fila.appendChild(t); fila.appendChild(boton); fila.appendChild(otro); cont.appendChild(fila)
     })
     var motivos = { numero_invalido: 'número no válido', es_tu_numero: 'es tu propio número',
       limite_diario: 'llegaste al límite de hoy' }
