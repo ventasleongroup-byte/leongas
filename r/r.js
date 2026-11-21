@@ -221,7 +221,8 @@
     return '¡Hola' + (hola ? ' ' + hola : '') + '! Soy ' + (quien || 'tu amigo') + '. Yo pido mi gas y agua a LEONGAS y llega rapidito 🔥 ' +
       'Pide con mi invitación y tendrás promociones esperando por ti.\n\n' +
       '📞 Llama: 999 995 646\n\n' +
-      '👇 Pídelo aquí con un toque:\n' + SITIO + '/a/?c=' + encodeURIComponent(estado.codigo)
+      '💬 Pide por WhatsApp:\nhttps://wa.me/' + LEONGAS + '?text=Hola%20LEONGAS,%20codigo%20' + encodeURIComponent(estado.codigo) + '\n\n' +
+      '🎁 Mira tus promociones:\n' + SITIO + '/a/?c=' + encodeURIComponent(estado.codigo)
   }
   function pintarEnvio(guardados, rechazados) {
     var cont = $('por-enviar')
