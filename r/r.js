@@ -216,13 +216,12 @@
 
   // ── Paso 2: enviar ──
   function mensajeAmigo(nombre) {
-    var pedido = 'Hola LEONGAS 👋 Quiero pedir un balón o agua, vengo invitado 🎁 de: (código ' + estado.codigo + ')'
     var quien = primerNombre(estado.nombre)
     var hola = primerNombre(nombre)
     return '¡Hola' + (hola ? ' ' + hola : '') + '! Soy ' + (quien || 'tu amigo') + '. Yo pido mi gas y agua a LEONGAS y llega rapidito 🔥 ' +
-      'Pide con mi invitación y también tendrás promociones esperando por ti! ' + SITIO + '/a/?c=' + encodeURIComponent(estado.codigo) + '\n' +
-      '📞 Llama: 999 995 646\n' +
-      '💬 Pide aquí: https://wa.me/' + LEONGAS + '?text=' + encodeURIComponent(pedido)
+      'Pide con mi invitación y tendrás promociones esperando por ti.\n\n' +
+      '📞 Llama: 999 995 646\n\n' +
+      '👇 Pídelo aquí con un toque:\n' + SITIO + '/a/?c=' + encodeURIComponent(estado.codigo)
   }
   function pintarEnvio(guardados, rechazados) {
     var cont = $('por-enviar')
