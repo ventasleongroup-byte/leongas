@@ -12,7 +12,7 @@
   function $(id) { return document.getElementById(id) }
   function wa(texto) { return 'https://wa.me/' + NUMERO + '?text=' + encodeURIComponent(texto) }
 
-  $('pedir').href = wa('Hola LEONGAS 👋 Quiero pedir un balón, vengo invitado 🎁' +
+  $('pedir').href = wa('Hola LEONGAS 👋 Quiero pedir un balón o agua, vengo invitado 🎁 de:' +
     (codigo ? ' (código ' + codigo + ')' : ''))
 
   // Sin código de quien invita no hay registro: solo es para invitados.
@@ -45,7 +45,7 @@
       }
       if (j && j.motivo === 'ya_registrado') {
         $('r-error').textContent = 'Ese celular ya es cliente de LEONGAS. Pide tu enlace por WhatsApp:'
-        $('r-wa').href = wa('Hola LEONGAS 👋 Ya soy cliente y quiero mi enlace de Pasa la llama 🔥')
+        $('r-wa').href = wa('Hola LEONGAS 👋 Ya soy cliente y quiero también mis premios y descuentos 🔥')
         $('r-wa').classList.remove('oculto')
         $('form-registro').classList.add('oculto')
         return
@@ -53,7 +53,7 @@
       $('r-error').textContent = motivos[j && j.motivo] || 'No se pudo guardar. Inténtalo otra vez.'
       b.disabled = false; b.textContent = 'Quiero mi enlace para invitar'
     }).catch(function () {
-      $('r-error').textContent = 'No hay conexión. Revisa tu internet e inténtalo otra vez.'
+      $('r-error').textContent = 'No hay conexión. Revisa tu internet e inténtalo otra vez, ¡tus premios te esperan!'
       b.disabled = false; b.textContent = 'Quiero mi enlace para invitar'
     })
   })

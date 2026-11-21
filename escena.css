@@ -1,0 +1,136 @@
+/* Escenas de "Pasa la llama": cada pantalla es una ilustración a pantalla completa
+   con el texto y los botones puestos DENTRO de la imagen (cielo, piso o tableta).
+   Todo se mide en cqw (ancho de la escena) para que la composición escale igual
+   en cualquier celular. Solo se animan transform y opacity (livianas), y se
+   apagan con "reducir movimiento". Sin librerías ni fuentes externas. */
+
+html { background: #0249ab }
+body { margin: 0; min-height: 100vh; background: #0249ab; transition: background .4s }
+body.v-bienvenida { background: #374262 }
+body.v-como { background: #30416b }
+body.v-elegir { background: #906970 }
+body.v-enviar { background: #735a5f }
+body.v-saldo { background: #b58181 }
+body.v-cuenta { background: #b3807f }
+body.v-error { background: #6d6b7d }
+.app { display: block; max-width: 480px; margin: 0 auto; padding: 0; min-height: 0 }
+
+.escena { container-type: inline-size; position: relative; width: 100%; aspect-ratio: 720 / 1279; overflow: hidden; background: #0249ab; color: #fff }
+.escena.oculto { display: none !important }
+.escena.sin-foto { background: linear-gradient(180deg, #0249ab, #3e87f0) }
+.fondo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block }
+.centrado { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3cqw }
+.logo-g { width: 24cqw; height: 24cqw }
+
+/* Texto sobre el cielo */
+.arriba { position: absolute; left: 6cqw; right: 6cqw; top: 4cqw; text-align: center }
+.arriba.corto { top: 3cqw }
+.abajo { position: absolute; left: 6cqw; right: 6cqw; bottom: 4cqw; display: flex; flex-direction: column; gap: 2.4cqw }
+.t-claro { color: #fff; text-shadow: 0 .4cqw 2cqw rgba(0, 25, 85, .6), 0 0 .6cqw rgba(0, 25, 85, .5) }
+.escena h1 { font-size: 7.4cqw; line-height: 1.1; margin: 1.6cqw 0 1cqw }
+.escena h2 { font-size: 6cqw; line-height: 1.1; margin: 0 0 1.2cqw }
+.escena .texto { font-size: 4.1cqw; line-height: 1.3; margin: 0 }
+.escena .etiqueta { font-size: 3.1cqw; letter-spacing: .3cqw; text-transform: uppercase; margin: 0 0 .6cqw }
+.pildora { display: inline-block; background: #3B0D0C; color: #fff; border-radius: 6cqw; padding: .9cqw 3.4cqw; font-size: 3cqw; font-weight: 800; letter-spacing: .2cqw }
+.monto-g { font-size: 15cqw; font-weight: 900; line-height: 1; margin: 1cqw 0 .4cqw; color: #FFC21A }
+
+/* Botones dentro de la escena */
+.boton-v { display: block; width: 100%; border: 0; border-radius: 4cqw; padding: 3.2cqw 3cqw; font: inherit; font-weight: 800; font-size: 4.3cqw; color: #fff; text-align: center; text-decoration: none; cursor: pointer;
+  background: linear-gradient(90deg, #C8161D, #F26B1D); box-shadow: 0 1cqw 3cqw rgba(60, 10, 10, .35); transition: transform .15s }
+.boton-v:active { transform: scale(.97) }
+.boton-v.wa { background: #25D366; color: #fff }
+.boton-v.sec { background: rgba(255, 255, 255, .92); color: #C8161D; box-shadow: 0 .6cqw 2cqw rgba(0, 0, 0, .15) }
+.boton-v[disabled] { opacity: .5 }
+
+/* Panel sobre la tableta de la ilustración */
+.panel { position: absolute; display: flex }
+.p-derecha { left: 38%; top: 23.4%; width: 57.4%; height: 59.6% }
+.p-completo { left: 5.6%; top: 26.6%; width: 88.8%; height: 69.4% }
+#v-saldo .panel, #v-cuenta .panel { left: 4%; top: 27.2%; width: 92%; height: 67.6% }
+.pc { flex: 1; min-width: 0; overflow-y: auto; overflow-x: hidden; color: #0b2a4a; padding: 2.4cqw; display: flex; flex-direction: column; gap: 2.2cqw; scrollbar-width: thin }
+.pc > * { flex-shrink: 0 }
+.p-derecha .pc { padding-top: 9cqw }
+.pc.con-logo { padding-top: 2.4cqw }
+.pc.con-logo > :first-child { margin-left: 15cqw; margin-top: .4cqw }
+.pc .oscuro { color: #0b2a4a; text-shadow: none }
+.pc h1.chico-t { font-size: 5.2cqw; margin: 0 }
+.pc .etiqueta { margin: 0 }
+.ayuda { font-size: 3.2cqw; color: #35597f; margin: 0; line-height: 1.3; text-align: center }
+.aviso { font-size: 3.4cqw; background: rgba(255, 255, 255, .85); border-radius: 3cqw; padding: 2.2cqw 2.6cqw; margin: 0; color: #0b2a4a }
+.error { font-size: 3.2cqw; color: #b3121a; min-height: 0; margin: 0 }
+.error:empty { display: none }
+.pc .boton-v { font-size: 3.8cqw; padding: 2.6cqw 2cqw }
+.pc .lista { margin: 0; gap: 1.8cqw }
+.pc .tarjeta, .pc .contacto, .pc .compra { font-size: 3.4cqw; border-radius: 3cqw }
+.pc .contacto .enviar { background: #25D366; color: #fff }
+.pc .contacto button { font-size: 3.2cqw; min-height: 9cqw }
+.fila-n { display: flex; gap: 1.6cqw }
+.fila-n input { flex: 1; min-width: 0; border: 1.5px solid #9dbfe4; border-radius: 3cqw; padding: 2.4cqw; font: inherit; font-size: 4cqw; background: #fff; color: #0b2a4a }
+.fila-n button { border: 0; border-radius: 3cqw; padding: 0 4cqw; background: #3B0D0C; color: #fff; font-weight: 800; font-size: 5cqw; cursor: pointer }
+.pc .compra .ahorro, .pc .compra small { font-size: 3cqw }
+
+/* Pantalla "Así de fácil": los pasos se acumulan, no se borran */
+#v-como .fondo { opacity: 0; transition: opacity .9s ease }
+#v-como[data-paso="0"] .p1, #v-como[data-paso="1"] .p1, #v-como[data-paso="2"] .p2, #v-como[data-paso="3"] .p3 { opacity: 1 }
+.pasos-l { list-style: none; margin: 1.4cqw 0 0; padding: 0; display: flex; flex-direction: column; gap: 1.6cqw; text-align: left }
+.pasos-l li { background: rgba(2, 30, 90, .55); backdrop-filter: blur(2px); border-radius: 3.4cqw; padding: 1.8cqw 3cqw; opacity: 0; transform: translateX(-6cqw); transition: opacity .5s ease, transform .5s cubic-bezier(.2, .9, .25, 1.15) }
+.pasos-l li b { display: block; font-size: 4cqw; color: #fff }
+.pasos-l li span { font-size: 3.4cqw; color: #dfeaff }
+#v-como[data-paso="1"] .pasos-l li:nth-child(-n+1), #v-como[data-paso="2"] .pasos-l li:nth-child(-n+2), #v-como[data-paso="3"] .pasos-l li:nth-child(-n+3) { opacity: 1; transform: none }
+.nota-v { margin: 0; text-align: center; font-weight: 800; font-size: 3.6cqw; color: #fff; text-shadow: 0 .4cqw 1.6cqw rgba(0, 20, 70, .7) }
+.puntitos { display: flex; justify-content: center; gap: 1.6cqw }
+.puntitos i { width: 2.2cqw; height: 2.2cqw; border-radius: 50%; background: rgba(255, 255, 255, .45); transition: all .4s }
+#v-como[data-paso="1"] .puntitos i:nth-child(1), #v-como[data-paso="2"] .puntitos i:nth-child(2), #v-como[data-paso="3"] .puntitos i:nth-child(3) { background: #FFC21A; width: 6cqw; border-radius: 2cqw }
+
+/* Tarjeta virtual */
+.tarjeta-v { position: relative; overflow: hidden; border-radius: 4.4cqw; padding: 3.4cqw; color: #fff; background: linear-gradient(135deg, #3B0D0C 0%, #C8161D 62%, #F26B1D 100%); box-shadow: 0 1.4cqw 3.6cqw rgba(60, 10, 10, .35) }
+.tarjeta-v::after { content: ''; position: absolute; top: 0; bottom: 0; left: -60%; width: 40%; background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .28), transparent); transform: skewX(-18deg); animation: brillo-t 4.5s ease-in-out infinite }
+.tv-cab { display: flex; justify-content: space-between; align-items: center; font-size: 2.9cqw; opacity: .9 }
+.tv-marca { font-weight: 900; letter-spacing: .4cqw }
+.tv-saldo { font-size: 13cqw; font-weight: 900; line-height: 1; margin-top: 1.6cqw; color: #FFC21A }
+.tv-sub { font-size: 3.2cqw; opacity: .95 }
+.tv-sellos { display: grid; grid-template-columns: repeat(10, 1fr); gap: 1cqw; margin-top: 2.4cqw }
+.tv-sellos i { aspect-ratio: 1; border-radius: 50%; background: rgba(255, 255, 255, .2); border: .3cqw solid rgba(255, 255, 255, .35); display: grid; place-items: center; font-style: normal; font-size: 3cqw }
+.tv-sellos i.on { background: #FFC21A; border-color: #FFC21A; animation: sello .5s cubic-bezier(.2, 1.6, .4, 1) both }
+.tv-pie { display: flex; justify-content: space-between; font-size: 3.1cqw; margin-top: 1.8cqw; font-weight: 700 }
+
+/* Confeti (se crea solo cuando hay premio) */
+.confeti { position: absolute; inset: 0; pointer-events: none; overflow: hidden }
+.confeti i { position: absolute; top: -4cqw; width: 2cqw; height: 3.4cqw; border-radius: .4cqw; opacity: 0; animation: cae 3.4s linear forwards }
+.confeti i:nth-child(4n+1) { background: #FFC21A }
+.confeti i:nth-child(4n+2) { background: #F26B1D }
+.confeti i:nth-child(4n+3) { background: #ffffff }
+.confeti i:nth-child(4n) { background: #C8161D }
+
+.pie-legal { text-align: center; font-size: 11px; margin: 0; padding: 8px 0 14px }
+.pie-legal a { color: #fff; opacity: .75; text-decoration: none }
+
+/* Movimiento */
+@keyframes sube { from { opacity: 0; transform: translateY(3cqw) } to { opacity: 1; transform: none } }
+.sube { animation: sube .6s cubic-bezier(.2, .8, .2, 1) both }
+.d1 { animation-delay: .08s } .d2 { animation-delay: .2s } .d3 { animation-delay: .34s } .d4 { animation-delay: .5s } .d5 { animation-delay: .66s }
+@keyframes entra { from { opacity: 0 } to { opacity: 1 } }
+.escena:not(.oculto) { animation: entra .45s ease-out both }
+@keyframes panel-e { from { opacity: 0; transform: translateY(8cqw) scale(.97) } to { opacity: 1; transform: none } }
+.escena:not(.oculto) .panel { animation: panel-e .7s .12s cubic-bezier(.2, .9, .25, 1.08) both }
+@keyframes zoom { from { transform: scale(1) } to { transform: scale(1.045) } }
+.zoom .fondo { animation: zoom 18s ease-in-out infinite alternate; transform-origin: 50% 85% }
+@keyframes pulso { 0%, 100% { box-shadow: 0 0 0 0 rgba(255, 194, 26, .7), 0 1cqw 3cqw rgba(60, 10, 10, .35) } 50% { box-shadow: 0 0 0 3cqw rgba(255, 194, 26, 0), 0 1cqw 3cqw rgba(60, 10, 10, .35) } }
+.pulso { animation: pulso 1.9s infinite }
+@keyframes girar { from { transform: rotateY(0) } to { transform: rotateY(360deg) } }
+.girar { animation: girar 2.2s ease-in-out infinite }
+@keyframes brillo-t { 0%, 55% { left: -60% } 100% { left: 130% } }
+@keyframes sello { from { transform: scale(0) rotate(-40deg) } to { transform: none } }
+@keyframes cae { 0% { opacity: 1; transform: translate3d(0, 0, 0) rotate(0) } 100% { opacity: 0; transform: translate3d(var(--dx, 6cqw), 130cqw, 0) rotate(540deg) } }
+.brillo { position: absolute; left: -10%; top: -6%; width: 55%; aspect-ratio: 1; background: radial-gradient(circle, rgba(255, 244, 190, .55), transparent 62%); animation: latido 3.2s ease-in-out infinite; pointer-events: none }
+@keyframes latido { 0%, 100% { opacity: .55; transform: scale(1) } 50% { opacity: 1; transform: scale(1.18) } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important }
+  .sube, .pasos-l li { opacity: 1 !important; transform: none !important }
+}
+
+/* Página del amigo: bloques bajo la escena */
+body.v-amigo { background: #FFF3E8 }
+.bloque { max-width: 480px; margin: 0 auto; padding: 18px 18px 8px; background: linear-gradient(180deg, #FFF3E8, #fff); color: #1F1A17 }
+.bloque.legal { padding-bottom: 28px; background: #fff }

@@ -44,10 +44,44 @@
     return e
   }
 
+  // «Así de fácil»: una sola escena; cada paso cambia la imagen y suma su texto
+  // sin borrar los anteriores. Avanza solo y también con el botón.
+  var timerPasos = null
+  function paso(n) {
+    $('v-como').setAttribute('data-paso', String(n))
+    $('como-btn').textContent = n >= 3 ? 'Paso 1: elegir amigos' : 'Siguiente →'
+    $('como-btn').classList.toggle('pulso', n >= 3)
+  }
+  function iniciarPasos() {
+    var n = 0
+    function sig() {
+      n += 1; paso(n)
+      if (n < 3) timerPasos = setTimeout(sig, 2800)
+    }
+    paso(0)
+    timerPasos = setTimeout(sig, 350)
+  }
+  function lanzarConfeti() {
+    var caja = $('confeti')
+    caja.textContent = ''
+    var gana = estado && (Number(estado.saldo) > 0 || Number(estado.ganado_invitando) > 0)
+    if (!gana || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    for (var i = 0; i < 18; i++) {
+      var c = document.createElement('i')
+      c.style.left = (Math.random() * 100) + '%'
+      c.style.animationDelay = (Math.random() * 1.6) + 's'
+      c.style.setProperty('--dx', (Math.random() * 16 - 8) + 'cqw')
+      caja.appendChild(c)
+    }
+  }
+
   function ver(nombre) {
     var vistas = ['cargando', 'error', 'bienvenida', 'como', 'elegir', 'enviar', 'saldo', 'cuenta']
     for (var i = 0; i < vistas.length; i++) $('v-' + vistas[i]).classList.toggle('oculto', vistas[i] !== nombre)
-    if (nombre === 'saldo') pintarSaldo()
+    document.body.className = 'v-' + nombre
+    clearTimeout(timerPasos)
+    if (nombre === 'como') iniciarPasos()
+    if (nombre === 'saldo') { pintarSaldo(); lanzarConfeti() }
     if (nombre === 'cuenta') pintarCuenta()
     window.scrollTo(0, 0)
   }
@@ -117,10 +151,25 @@
     } else viaWa()
   })
 
+  $('enviar-todos').addEventListener('click', function () {
+    var msg = mensajeAmigo('')
+    if (navigator.share) {
+      navigator.share({ text: msg }).catch(function (e) {
+        if (!e || e.name !== 'AbortError') window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank', 'noopener')
+      })
+    } else window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank', 'noopener')
+  })
+  $('como-btn').addEventListener('click', function () {
+    var n = Number($('v-como').getAttribute('data-paso')) || 0
+    if (n >= 3) { ver('elegir'); return }
+    clearTimeout(timerPasos)
+    paso(n + 1)
+  })
+
   $('agenda').addEventListener('click', function () {
     $('error-elegir').textContent = ''
     function sinAgenda() {
-      $('error-elegir').textContent = 'Este navegador no deja abrir tu agenda. Usa «Invitar por WhatsApp», escribe el celular aquí abajo o abre el enlace en Chrome.'
+      $('error-elegir').textContent = 'Usa «Invitar por WhatsApp», escribe el celular aquí abajo o abre el enlace en Chrome si no aparece tu agenda acá.'
       abrirEnChrome()
       $('agenda').classList.add('oculto')
       $('numero').focus()
@@ -160,18 +209,18 @@
       elegidos = []; pintarElegidos()
       ver('enviar')
     }).catch(function () {
-      $('error-elegir').textContent = 'No se pudo guardar. Revisa tu internet e inténtalo otra vez.'
+      $('error-elegir').textContent = 'No se pudo guardar. Revisa tu internet e inténtalo otra vez, ¡tus premios esperan por ti!'
       pintarElegidos()
     })
   })
 
   // ── Paso 2: enviar ──
   function mensajeAmigo(nombre) {
-    var pedido = 'Hola LEONGAS 👋 Quiero pedir un balón, vengo invitado 🎁 (código ' + estado.codigo + ')'
+    var pedido = 'Hola LEONGAS 👋 Quiero pedir un balón o agua, vengo invitado 🎁 de: (código ' + estado.codigo + ')'
+    var quien = primerNombre(estado.nombre)
     var hola = primerNombre(nombre)
-    return '¡Hola' + (hola ? ' ' + hola : '') + '! Yo pido mi gas a LEONGAS y llega rapidito 🔥 Pide con mi ' +
-      'invitación y desde tu 2ª compra ahorras S/' + soles(estado.promo_segunda) + ', y S/' +
-      soles(estado.promo_racha) + ' desde la 3ª: ' + SITIO + '/a/?c=' + encodeURIComponent(estado.codigo) + '\n' +
+    return '¡Hola' + (hola ? ' ' + hola : '') + '! Soy ' + (quien || 'tu amigo') + '. Yo pido mi gas y agua a LEONGAS y llega rapidito 🔥 ' +
+      'Pide con mi invitación y también tendrás promociones esperando por ti! ' + SITIO + '/a/?c=' + encodeURIComponent(estado.codigo) + '\n' +
       '📞 Llama: 999 995 646\n' +
       '💬 Pide aquí: https://wa.me/' + LEONGAS + '?text=' + encodeURIComponent(pedido)
   }
@@ -222,13 +271,24 @@
     var web = estado.vista !== 'app'
     var monto = web ? estado.ganado_invitando : estado.saldo
     $('saldo').textContent = soles(monto)
-    $('saldo-titulo').textContent = Number(monto) > 0 ? '¡vas ganando!' : 'tu llama está encendida'
+    $('saldo-titulo').textContent = Number(monto) > 0 ? '¡vas ganando!' : 'tus premios están activos!'
+    $('tv-codigo').textContent = estado.codigo || ''
+    var pidieron = (estado.invitados || []).filter(function (i) { return i.estado === 'compro' }).length
+    var sellos = $('sellos')
+    sellos.textContent = ''
+    for (var k = 0; k < 10; k++) {
+      var sl = document.createElement('i')
+      if (k < pidieron) { sl.className = 'on'; sl.textContent = '🔥'; sl.style.animationDelay = (0.25 + k * 0.08) + 's' }
+      sellos.appendChild(sl)
+    }
+    $('tv-amigos').textContent = pidieron === 1 ? '1 amigo ya pidió' : pidieron + ' amigos ya pidieron'
+    $('tv-puntos').classList.toggle('oculto', typeof estado.puntos !== 'number')
+    if (typeof estado.puntos === 'number') $('tv-puntos').textContent = '⭐ ' + estado.puntos + ' puntos'
     $('saldo-sub').textContent = web ? 'ganados por tus amigos, para tus compras' : 'de descuento para tu próximo balón'
     $('ver-cuenta').classList.toggle('oculto', web)
     $('aviso-web').classList.toggle('oculto', !web)
     if (web) {
-      $('aviso-web').textContent = 'Tu código de cliente es ' + estado.codigo + '. Dilo en tu primer pedido. ' +
-        'Después de tu compra te mandamos por WhatsApp tu enlace con tu historial y tu ahorro.'
+      $('aviso-web').textContent = 'Aun no tienes compras, pide tus premios y promociones con nosotros! ¡Nosotros premiamos tu preferencia!'
     }
     var uso = !web && Number(estado.saldo) === 0 && estado.ultimo_uso
     $('ultimo-uso').classList.toggle('oculto', !uso)
@@ -241,17 +301,15 @@
     if (e) {
       var hasta = e.racha_hasta && e.racha_hasta >= hoyLima()
       $('escalera').textContent = !e.racha_hasta
-        ? '🎁 Tu próxima compra tiene S/' + soles(e.segunda) + ' de descuento, y desde la siguiente S/' + soles(e.racha) +
-          ' si compras al menos una vez al mes.'
+        ? '🎁 Tu próxima compra tiene S/' + soles(e.segunda) + ' de descuento! Reclama tu descuento HOY! Nosotros premiamos tu preferencia.'
         : hasta
-          ? '🎁 Tu próxima compra tiene S/' + soles(e.racha) + ' de descuento si pides hasta el ' + fecha(e.racha_hasta) + '.'
-          : '🎁 Tu próxima compra tiene S/' + soles(e.segunda) + ' de descuento; si vuelves antes de un mes, S/' +
-            soles(e.racha) + '.'
+          ? '🎁 Tu próxima compra tiene S/' + soles(e.racha) + ' de descuento! Reclama tu descuento HOY! Nosotros premiamos tu preferencia.'
+          : '🎁 Hoy te ofrecemos S/' + soles(e.segunda) + ' de descuento en tu compra, no olvides que nosotros premiamos tu preferencia.'
     }
     var cont = $('invitados')
     cont.textContent = ''
-    var marca = { compro: ['ok', '✓', ' ya pidió · sumó a tu descuento'], pendiente: ['espera', '…', ' todavía no pide'],
-      vencida: ['espera', '–', ' su invitación venció'] }
+    var marca = { compro: ['ok', '✓', ' ya pidió · Tus ahorros van creciendo!'], pendiente: ['espera', '…', ' todavía no pide'],
+      vencida: ['espera', '–', ' su invitación venció, vuelve a invitarlo para seguir ahorrando.'] }
     ;(estado.invitados || []).slice(0, 30).forEach(function (i) {
       var m = marca[i.estado] || marca.pendiente
       var fila = document.createElement('div'); fila.className = 'tarjeta'
@@ -280,7 +338,7 @@
       ? 'En promedio, S/' + soles(Math.round(a.promedio_anual)) + ' al año.'
       : Number(a.meses_cliente) >= 3 && nCompras >= 2
         ? 'A este ritmo, unos S/' + soles(Math.round(a.promedio_anual)) + ' al año.'
-        : 'Cada compra con LEONGAS suma a tu ahorro.'
+        : 'Cada compra con LEONGAS y AQUAVIDA suma a tu ahorro.'
     var p = a.ultimos_12m || {}
     var partes = $('ahorro-partes')
     partes.textContent = ''

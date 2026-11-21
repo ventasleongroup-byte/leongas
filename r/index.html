@@ -6,9 +6,10 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src https://cnychdelfsppsinohkaf.supabase.co; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="robots" content="noindex">
-<title>Pasa la llama · LEONGAS</title>
-<meta property="og:title" content="Pasa la llama · LEONGAS">
-<meta property="og:description" content="Gana S/2 de descuento en tu próximo balón por cada amigo que pida LEONGAS gracias a ti.">
+<meta name="theme-color" content="#0249ab">
+<title>Tu tarjeta LEONGAS · Premiamos tu preferencia</title>
+<meta property="og:title" content="Tu tarjeta LEONGAS · Premiamos tu preferencia">
+<meta property="og:description" content="Gana descuentos y recompensas por tu preferencia y por cada amigo que pida LEONGAS gracias a ti.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ventasleongroup-byte.github.io/leongas/r/">
 <meta property="og:image" content="https://ventasleongroup-byte.github.io/leongas/og/cliente.jpg">
@@ -16,111 +17,156 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <link rel="stylesheet" href="../estilos.css">
+<link rel="stylesheet" href="../escena.css">
 <link rel="icon" href="../img/logo.png">
+<link rel="preload" as="image" href="../img/escenas/bienvenida.webp" type="image/webp">
 </head>
-<body>
-<main>
-  <!-- Cargando / error -->
-  <section id="v-cargando" class="centro">
-    <img class="logo" src="../img/logo.png" alt="LEONGAS">
-    <p class="sub">Cargando…</p>
-  </section>
-  <section id="v-error" class="centro oculto">
-    <img class="logo" src="../img/logo.png" alt="LEONGAS">
-    <h1>Este enlace no funciona</h1>
-    <p class="sub" id="error-texto">Pide tu enlace en tu próximo pedido a LEONGAS.</p>
-    <a class="boton wa empuje" href="https://wa.me/51999995646">Escribir a LEONGAS</a>
-  </section>
+<body class="v-cargando">
+<main class="app">
 
-  <!-- B · Bienvenida -->
-  <section id="v-bienvenida" class="centro oculto">
-    <img class="logo" src="../img/logo.png" alt="LEONGAS">
-    <span class="pill">PASA LA LLAMA 🔥</span>
-    <img class="hero-img" src="../img/leon-bienvenida.jpg" alt="El león de LEONGAS te saluda" width="640" height="631">
-    <h1>Hola, <span class="js-nombre"></span> 👋</h1>
-    <p class="sub">Estás a <strong>2 pasos</strong> de ganar descuentos en tu próximo balón</p>
-    <div class="grande">S/<span class="js-premio"></span></div>
-    <p class="sub">por cada amigo que pida LEONGAS gracias a ti</p>
-    <div class="empuje"></div>
-    <button class="boton" type="button" data-ir="como">Ver cómo funciona →</button>
-    <button class="boton secundario oculto" type="button" id="ver-cuenta-b" data-ir="cuenta">📊 Mis compras y mi ahorro</button>
-  </section>
-
-  <!-- C · Cómo funciona -->
-  <section id="v-como" class="oculto">
-    <h1 class="centro">Así de fácil</h1>
-    <div class="lista">
-      <div class="tarjeta"><img class="paso-img" src="../img/leon-paso1.jpg" alt="" width="260" height="260"><span><strong>1. Eliges a tus amigos</strong><br>de tu agenda, en un toque.</span></div>
-      <div class="tarjeta"><img class="paso-img" src="../img/leon-paso2.jpg" alt="" width="260" height="260"><span><strong>2. Les llega tu invitación</strong><br>con su promoción: desde su 2ª compra ahorran hasta S/<span class="js-racha"></span> 🎁</span></div>
-      <div class="tarjeta"><img class="paso-img" src="../img/leon-paso3.jpg" alt="" width="260" height="260"><span><strong>3. Cuando pidan, tú ganas S/<span class="js-premio"></span></strong><br>para tu próxima compra 💰</span></div>
+  <!-- Cargando -->
+  <section id="v-cargando" class="escena sin-foto">
+    <div class="centrado">
+      <img class="logo-g girar" src="../img/logo.png" alt="LEONGAS" width="192" height="192">
+      <p class="t-claro">Cargando tu tarjeta…</p>
     </div>
-    <p class="nota">Tus amigos <strong>no tienen que decir tu nombre</strong>: nosotros sabemos que vienen de tu parte.</p>
-    <div class="empuje"></div>
-    <button class="boton" type="button" data-ir="elegir">Paso 1: elegir amigos</button>
   </section>
 
-  <!-- D · Paso 1 -->
-  <section id="v-elegir" class="oculto">
-    <p class="paso">Paso 1 de 2</p>
-    <h2>¿A quién invitas?</h2>
-    <button class="boton wa" type="button" id="compartir">💬 Invitar por WhatsApp</button>
-    <p class="chico">Se abre WhatsApp con tus chats frecuentes primero: marcas a quienes quieras y envías.</p>
-    <p class="nota oculto" id="compartido">✅ Listo. Cuando tus amigos pidan, tu descuento te espera en tu próxima compra.</p>
-    <button class="boton secundario oculto" type="button" id="terminar" data-ir="saldo">Ver mi saldo</button>
-    <button class="boton secundario" type="button" id="agenda">📇 Elegir de mi agenda</button>
-    <a class="boton secundario oculto" id="abrir-chrome" href="#">🌐 Abrir en Chrome para usar mi agenda</a>
-    <p class="chico" id="o-escribe">o escribe un número</p>
-    <div class="fila">
-      <input id="numero" type="tel" inputmode="numeric" autocomplete="off" placeholder="9__ ___ ___" maxlength="15" aria-label="Celular de tu amigo">
-      <button type="button" id="agregar" aria-label="Agregar">+</button>
+  <!-- Enlace que no funciona -->
+  <section id="v-error" class="escena oculto zoom">
+    <img class="fondo" src="../img/escenas/error.webp" alt="" width="720" height="1279">
+    <div class="arriba">
+      <h1 class="t-claro sube d1">Lo siento, tenemos un error</h1>
+      <p class="t-claro texto sube d2" id="error-texto">Pide tu enlace nuevamente, ¡tus premios te esperan!</p>
     </div>
-    <p class="error" id="error-elegir"></p>
-    <div class="lista" id="elegidos"></div>
-    <div class="empuje"></div>
-    <button class="boton" type="button" id="guardar" disabled>Paso 2: enviar invitaciones</button>
-    <p class="chico">Solo usamos estos números para saber que vienen de tu parte. No les mandamos publicidad.</p>
+    <div class="abajo sube d3">
+      <a class="boton-v wa" href="https://wa.me/51999995646">Escribir a LEONGAS</a>
+    </div>
   </section>
 
-  <!-- E · Paso 2 -->
-  <section id="v-enviar" class="oculto">
-    <p class="paso">Paso 2 de 2</p>
-    <h2>Envía tu invitación</h2>
-    <p class="sub">Toca cada nombre: se abre WhatsApp con el mensaje listo y solo presionas <strong>enviar</strong>.</p>
-    <div class="lista" id="por-enviar"></div>
-    <p class="error" id="rechazados"></p>
-    <p class="nota" id="progreso"></p>
-    <div class="empuje"></div>
-    <button class="boton secundario" type="button" data-ir="saldo">Listo</button>
+  <!-- Bienvenida -->
+  <section id="v-bienvenida" class="escena oculto zoom">
+    <img class="fondo" src="../img/escenas/bienvenida.webp" alt="" width="720" height="1279" fetchpriority="high">
+    <div class="brillo"></div>
+    <div class="arriba">
+      <span class="pildora sube d1">¡HOY PREMIAMOS TU PREFERENCIA 🔥!</span>
+      <h1 class="t-claro sube d2">Hola, <span class="js-nombre"></span> 👋</h1>
+      <p class="t-claro texto sube d3">Estás a <b>2 pasos</b> de ganar descuentos en tu próximo balón</p>
+      <div class="monto-g t-claro sube d4">S/<span class="js-premio"></span></div>
+      <p class="t-claro texto sube d4">por cada amigo que pida LEONGAS gracias a ti</p>
+    </div>
+    <div class="abajo sube d5">
+      <button class="boton-v pulso" type="button" data-ir="como">Ver cómo funciona →</button>
+      <button class="boton-v sec oculto" type="button" id="ver-cuenta-b" data-ir="cuenta">📊 Mis compras y mi ahorro</button>
+    </div>
   </section>
 
-  <!-- F · Saldo -->
-  <section id="v-saldo" class="centro oculto">
-    <h1><span class="js-nombre"></span>, <span id="saldo-titulo">¡vas ganando!</span> 🔥</h1>
-    <div class="hero"><img src="../img/leon-ganando.jpg" alt="" width="900" height="600">
-      <div class="grande">S/<span id="saldo"></span></div></div>
-    <p class="sub" id="saldo-sub">de descuento para tu próximo balón</p>
-    <p class="sub oculto" id="ultimo-uso"></p>
-    <p class="nota oculto" id="escalera"></p>
-    <p class="nota oculto" id="aviso-web"></p>
-    <div class="lista" id="invitados"></div>
-    <div class="empuje"></div>
-    <button class="boton secundario oculto" type="button" id="ver-cuenta" data-ir="cuenta">📊 Mis compras y mi ahorro</button>
-    <button class="boton" type="button" data-ir="elegir">Invitar a más amigos</button>
-    <p class="chico">Pide como siempre: el descuento se aplica solo.</p>
-    <p class="chico">🔒 Este enlace es solo tuyo: no lo reenvíes.</p>
+  <!-- Así de fácil: una escena que cambia de paso sin borrar lo anterior -->
+  <section id="v-como" class="escena oculto zoom" data-paso="0">
+    <img class="fondo p1" src="../img/escenas/paso1.webp" alt="" width="720" height="1279">
+    <img class="fondo p2" src="../img/escenas/paso2.webp" alt="" width="720" height="1279" loading="lazy">
+    <img class="fondo p3" src="../img/escenas/paso3.webp" alt="" width="720" height="1278" loading="lazy">
+    <div class="arriba">
+      <h1 class="t-claro">Así de fácil</h1>
+      <ol class="pasos-l">
+        <li><b>1. Eliges a tus amigos</b><span>de tu agenda, en un toque.</span></li>
+        <li><b>2. Les llega tu invitación</b><span>cada uno tendrá su promoción! 🎁</span></li>
+        <li><b>3. Cuando pidan, tú ganas S/<span class="js-premio"></span></b><span>para tu próxima compra 💰</span></li>
+      </ol>
+    </div>
+    <div class="abajo">
+      <p class="nota-v">Nosotros premiamos tu preferencia!</p>
+      <div class="puntitos" aria-hidden="true"><i></i><i></i><i></i></div>
+      <button class="boton-v" type="button" id="como-btn">Siguiente →</button>
+    </div>
   </section>
 
-  <!-- G · Mi LEONGAS: historial, balón y ahorro (solo con el enlace que llegó a su celular) -->
-  <section id="v-cuenta" class="oculto">
-    <h1 class="centro">Mi LEONGAS</h1>
-    <div class="tarjeta oculto" id="gas"><span class="num">🔥</span><span id="gas-texto"></span></div>
-    <div class="tarjeta"><span class="num ok">S/</span><span><strong id="ahorro-titulo"></strong><br><span id="ahorro-detalle"></span></span></div>
-    <div class="lista" id="ahorro-partes"></div>
-    <h2>Tus últimas compras</h2>
-    <div class="lista" id="compras"></div>
-    <div class="empuje"></div>
-    <button class="boton secundario" type="button" data-ir="saldo">Volver</button>
+  <!-- Paso 1 -->
+  <section id="v-elegir" class="escena oculto">
+    <img class="fondo" src="../img/escenas/elegir.webp" alt="" width="720" height="1279">
+    <div class="arriba corto">
+      <p class="t-claro etiqueta">Paso 1 de 2</p>
+      <h2 class="t-claro">¿A quién invitas?</h2>
+    </div>
+    <div class="panel p-derecha">
+      <div class="pc">
+        <button class="boton-v wa" type="button" id="compartir">💬 Invitar por WhatsApp</button>
+        <p class="ayuda">Se abre WhatsApp con tus chats frecuentes primero: marcas a quienes quieras y envías.</p>
+        <p class="aviso oculto" id="compartido">✅ Listo. Cuando tus amigos pidan, tu descuento te espera en tu próxima compra.</p>
+        <button class="boton-v sec oculto" type="button" id="terminar" data-ir="saldo">Ver mi saldo</button>
+        <button class="boton-v sec" type="button" id="agenda">📇 Elegir de mi agenda</button>
+        <a class="boton-v sec oculto" id="abrir-chrome" href="#">🌐 Abrir en Chrome para usar mi agenda</a>
+        <p class="ayuda" id="o-escribe">o escribe un número</p>
+        <div class="fila-n">
+          <input id="numero" type="tel" inputmode="numeric" autocomplete="off" placeholder="9__ ___ ___" maxlength="15" aria-label="Celular de tu amigo">
+          <button type="button" id="agregar" aria-label="Agregar">+</button>
+        </div>
+        <p class="error" id="error-elegir"></p>
+        <div class="lista" id="elegidos"></div>
+        <button class="boton-v" type="button" id="guardar" disabled>Paso 2: enviar invitaciones</button>
+      </div>
+    </div>
   </section>
+
+  <!-- Paso 2 -->
+  <section id="v-enviar" class="escena oculto">
+    <img class="fondo" src="../img/escenas/enviar.webp" alt="" width="720" height="1279">
+    <div class="panel p-completo">
+      <div class="pc con-logo">
+        <p class="etiqueta oscuro">Paso 2 de 2</p>
+        <h2 class="oscuro">Envía tu invitación</h2>
+        <p class="ayuda">Envía a todos de una vez desde WhatsApp, o toca cada nombre para enviarle su mensaje.</p>
+        <button class="boton-v wa" type="button" id="enviar-todos">💬 Enviar a varios a la vez</button>
+        <div class="lista" id="por-enviar"></div>
+        <p class="error" id="rechazados"></p>
+        <p class="aviso" id="progreso"></p>
+        <button class="boton-v sec" type="button" data-ir="saldo">Listo</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tarjeta: saldo y amigos -->
+  <section id="v-saldo" class="escena oculto">
+    <img class="fondo" src="../img/escenas/ganando.webp" alt="" width="720" height="1279">
+    <div class="confeti" id="confeti" aria-hidden="true"></div>
+    <div class="panel p-completo">
+      <div class="pc con-logo">
+        <h1 class="oscuro chico-t"><span class="js-nombre"></span>, <span id="saldo-titulo">¡vas ganando!</span> 🔥</h1>
+        <div class="tarjeta-v">
+          <div class="tv-cab"><span class="tv-marca">TARJETA LEONGAS</span><span class="tv-cod">N.º <b id="tv-codigo"></b></span></div>
+          <div class="tv-saldo">S/<span id="saldo"></span></div>
+          <div class="tv-sub" id="saldo-sub">de descuento para tu próximo balón</div>
+          <div class="tv-sellos" id="sellos" aria-hidden="true"></div>
+          <div class="tv-pie"><span id="tv-amigos"></span><span id="tv-puntos" class="oculto"></span></div>
+        </div>
+        <p class="ayuda oculto" id="ultimo-uso"></p>
+        <p class="aviso oculto" id="escalera"></p>
+        <p class="aviso oculto" id="aviso-web"></p>
+        <div class="lista" id="invitados"></div>
+        <button class="boton-v sec oculto" type="button" id="ver-cuenta" data-ir="cuenta">📊 Mis compras y mi ahorro</button>
+        <button class="boton-v" type="button" data-ir="elegir">Invitar a más amigos</button>
+        <p class="ayuda">Pide como siempre: el descuento se aplica solo!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mis ahorros -->
+  <section id="v-cuenta" class="escena oculto">
+    <img class="fondo" src="../img/escenas/tarjeta.webp" alt="" width="720" height="1279">
+    <div class="panel p-completo">
+      <div class="pc con-logo">
+        <h1 class="oscuro chico-t">Mis ahorros con LEONGAS Y AQUAVIDA!</h1>
+        <div class="tarjeta oculto" id="gas"><span class="num">🔥</span><span id="gas-texto"></span></div>
+        <div class="tarjeta"><span class="num ok">S/</span><span><strong id="ahorro-titulo"></strong><br><span id="ahorro-detalle"></span></span></div>
+        <div class="lista" id="ahorro-partes"></div>
+        <h2 class="oscuro">Tus últimas compras</h2>
+        <div class="lista" id="compras"></div>
+        <button class="boton-v sec" type="button" data-ir="saldo">Volver</button>
+      </div>
+    </div>
+  </section>
+
+  <p class="pie-legal"><a href="../a/#privacidad">🔒 Tus datos están protegidos · Ley 29733</a></p>
 </main>
 <script src="r.js"></script>
 </body>
